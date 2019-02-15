@@ -1,2 +1,5 @@
 # Rx
 github "ReactiveX/RxSwift" ~> 4.3.1
+
+# UI
+github "andreamazz/BubbleTransition"

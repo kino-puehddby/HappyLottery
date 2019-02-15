@@ -17,10 +17,15 @@ internal enum StoryboardScene {
 
     internal static let initialScene = InitialSceneType<UIKit.UIViewController>(storyboard: LaunchScreen.self)
   }
-  internal enum Main: StoryboardType {
-    internal static let storyboardName = "Main"
+  internal enum Questions: StoryboardType {
+    internal static let storyboardName = "Questions"
 
-    internal static let initialScene = InitialSceneType<HappyLottery.ViewController>(storyboard: Main.self)
+    internal static let initialScene = InitialSceneType<UIKit.UINavigationController>(storyboard: Questions.self)
+  }
+  internal enum Result: StoryboardType {
+    internal static let storyboardName = "Result"
+
+    internal static let initialScene = InitialSceneType<HappyLottery.ResultViewController>(storyboard: Result.self)
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name
