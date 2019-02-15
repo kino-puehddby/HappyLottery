@@ -15,13 +15,18 @@ import BubbleTransition
 final class ResultViewController: UIViewController {
     
     @IBOutlet weak private var closeButton: UIButton!
+    @IBOutlet weak private var resultLabel: UILabel!
     
     private let disposeBag = DisposeBag()
+    
+    var result: Double = 0.0
     
     weak var interactiveTransition: BubbleInteractiveTransition?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        resultLabel.text = result.description
         
         closeButton.rx.tap
             .subscribe(onNext: { [unowned self] in

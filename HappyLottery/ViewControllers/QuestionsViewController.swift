@@ -19,11 +19,16 @@ final class QuestionsViewController: UIViewController {
     @IBOutlet weak private var schoolStageSegCon: UISegmentedControl!
     @IBOutlet weak fileprivate var calculateButton: UIButton!
     @IBOutlet weak private var nameTextField: UITextField!
+    @IBOutlet weak private var nameValidLabel: UILabel!
+    @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
+        nameTextField.resignFirstResponder()
+    }
     
+    private let name = BehaviorRelay<String>(value: "")
     private let economyGrade = BehaviorRelay<EconomyGrade>(value: .good)
     private let effortGrade = BehaviorRelay<EffortGrade>(value: .fair)
     private let schoolStage = BehaviorRelay<SchoolStage>(value: .preschool)
-    private let name = BehaviorRelay<String>(value: "")
+    private let calculated = BehaviorRelay<Double>(value: 0)
     
     private let disposeBag = DisposeBag()
     private let transition = BubbleTransition()
@@ -68,18 +73,18 @@ final class QuestionsViewController: UIViewController {
             switch self {
             case .preschool: return 100
             case .elementarySchool: return 500
-            case .juniorHighSchool: return 2000
-            case .highSchool: return 3000
+            case .juniorHighSchool: return 1000
+            case .highSchool: return 2000
             case .university: return 5000
             }
         }
         
         var max: Double {
             switch self {
-            case .preschool: return 1000
-            case .elementarySchool: return 3000
-            case .juniorHighSchool: return 8000
-            case .highSchool: return 12000
+            case .preschool: return 500
+            case .elementarySchool: return 1500
+            case .juniorHighSchool: return 3000
+            case .highSchool: return 8000
             case .university: return 15000
             }
         }
@@ -100,6 +105,26 @@ final class QuestionsViewController: UIViewController {
     }
     
     func bind() {
+        let nameValid = nameTextField.rx.text
+            .map { $0 != "" }
+            .share(replay: 1)
+        nameValid
+            .bind(to: calculateButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        nameValid
+            .bind(to: nameValidLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        nameValid
+            .map { $0 ? Asset.systemBlue.color : .lightGray }
+            .subscribe(onNext: { [unowned self] color in
+                self.calculateButton.backgroundColor = color
+            })
+            .disposed(by: disposeBag)
+        
+        nameTextField.rx.text.orEmpty
+            .bind(to: name)
+            .disposed(by: disposeBag)
+        
         economyGradeSegCon.rx.selectedSegmentIndex
             .distinctUntilChanged()
             .map { EconomyGrade.allCases[$0] }
@@ -118,79 +143,72 @@ final class QuestionsViewController: UIViewController {
             .bind(to: schoolStage)
             .disposed(by: disposeBag)
         
-        nameTextField.rx.text.orEmpty
-            .bind(to: name)
-            .disposed(by: disposeBag)
-        
         calculateButton.rx.tap
             .map { [unowned self] in
-                (
+                self.calculate(
                     economyRate: self.economyGrade.value.rate,
                     effortRate: self.effortGrade.value.rate,
                     min: self.schoolStage.value.min,
                     max: self.schoolStage.value.max
                 )
             }
-            .subscribe(onNext: { [unowned self] arg in
-                self.calculate(
-                    economyRate: arg.economyRate,
-                    effortRate: arg.effortRate,
-                    min: arg.min,
-                    max: arg.max
-                )
+            .bind(to: calculated)
+            .disposed(by: disposeBag)
+        
+        calculated.asDriver()
+            .skip(1)
+            .drive(onNext: { [unowned self] _ in
+                self.perform(segue: StoryboardSegue.Questions.showResult)
             })
             .disposed(by: disposeBag)
     }
     
-    func calculate(economyRate: Double, effortRate: Double, min: Double, max: Double) {
-        // probability = 確率が良かったかどうか（努力して景気がいいほど当たりやすくなる）
-        let probability: Probability = {
-            let count = Double.random(in: 1...100)
-            if count <= 5 * economyRate * effortRate {
-                return .great
-            } else if count <= 25 * economyRate * effortRate {
-                return .good
-            } else if count <= 75 {
-                return .usually
-            } else if count <= 95 * (1 / economyRate) * (1 / effortRate)  {
-                return .bad
+    func calculate(economyRate: Double, effortRate: Double, min: Double, max: Double) -> Double {
+        // economyをmax、minに反映させる
+        let fixedMax = max * economyRate
+        let fixedMin = min * economyRate
+        
+        let result: Double = {
+            let random = Double.random(in: 1...100)
+            // effortを確立に反映させる
+            let great: Double = 5 * effortRate
+            let good: Double = 20 * effortRate
+            let bad: Double = 20 * (1 / effortRate)
+            let shit: Double = 5 * (1 / effortRate)
+            let usually: Double = 100 - (great + good + bad + shit)
+            let list = [great, good, usually, bad, shit]
+            
+            if random <= list[0] {
+                // great
+                return fixedMax
+            } else if random <= (list[0] + list[1]) {
+                // good
+                return roundBySchoolStage(fixedMin + (fixedMax - fixedMin) / 1.5)
+            } else if random <= (list[0] + list[1] + list[2]) {
+                // usually
+                return roundBySchoolStage(fixedMin + (fixedMax - fixedMin) / 2)
+            } else if random <= (list[0] + list[1] + list[2] + list[3]) {
+                // bad
+                return roundBySchoolStage(fixedMin + (fixedMax - fixedMin) / 3)
             } else {
-                return .shit
+                // shit
+                return fixedMin
             }
         }()
         
-        // 運が良かったらmaxが増える
-        let fixMax: Double = {
-            switch probability {
-            case .great: return max * 1.5
-            case .good: return max * 1.2
-            case .usually: return max
-            case .bad: return max * 0.8
-            case .shit: return max * 0.5
-            }
-        }()
-        let fixMin: Double = {
-            switch probability {
-            case .great: return min * 1.5
-            case .good: return min * 1.2
-            case .usually: return min
-            case .bad: return min * 0.8
-            case .shit: return min * 0.5
-            }
-        }()
-        
-        // random = 学校段階によってランダムなお年玉がランダムに決まる
-        var random = Double.random(in: fixMin ... fixMax)
+        debugPrint(result)
+        return result
+    }
+    
+    func roundBySchoolStage(_ value: Double) -> Double {
         switch schoolStage.value {
         case .preschool:
-            random = round(random / 100) * 100
+            return round(value / 100) * 100
         case .elementarySchool:
-            random = round(random / 500) * 500
+            return round(value / 500) * 500
         default:
-            random = round(random / 1000) * 1000
+            return round(value / 1000) * 1000
         }
-        
-        perform(segue: StoryboardSegue.Questions.showResult)
     }
 }
 
@@ -202,6 +220,7 @@ extension QuestionsViewController: UIViewControllerTransitioningDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == StoryboardSegue.Questions.showResult.rawValue {
             let vc = segue.destination as! ResultViewController
+            vc.result = calculated.value
             vc.transitioningDelegate = self
             vc.modalPresentationStyle = .custom
             vc.interactiveTransition = interactiveTransition
