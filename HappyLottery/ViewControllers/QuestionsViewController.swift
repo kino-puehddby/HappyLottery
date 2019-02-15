@@ -20,16 +20,16 @@ final class QuestionsViewController: UIViewController {
     @IBOutlet weak fileprivate var calculateButton: UIButton!
     @IBOutlet weak private var nameTextField: UITextField!
     
-    let economyGrade = BehaviorRelay<EconomyGrade>(value: .good)
-    let effortGrade = BehaviorRelay<EffortGrade>(value: .fair)
-    let schoolStage = BehaviorRelay<SchoolStage>(value: .preschool)
-    let name = BehaviorRelay<String>(value: "")
+    private let economyGrade = BehaviorRelay<EconomyGrade>(value: .good)
+    private let effortGrade = BehaviorRelay<EffortGrade>(value: .fair)
+    private let schoolStage = BehaviorRelay<SchoolStage>(value: .preschool)
+    private let name = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
-    let transition = BubbleTransition()
-    let interactiveTransition = BubbleInteractiveTransition()
+    private let transition = BubbleTransition()
+    private let interactiveTransition = BubbleInteractiveTransition()
     
-    enum EconomyGrade: CaseIterable {
+    private enum EconomyGrade: CaseIterable {
         case good
         case fair
         case poor
@@ -43,7 +43,7 @@ final class QuestionsViewController: UIViewController {
         }
     }
     
-    enum EffortGrade: CaseIterable {
+    private enum EffortGrade: CaseIterable {
         case good
         case fair
         case poor
@@ -57,7 +57,7 @@ final class QuestionsViewController: UIViewController {
         }
     }
     
-    enum SchoolStage: CaseIterable {
+    private enum SchoolStage: CaseIterable {
         case preschool
         case elementarySchool
         case juniorHighSchool
@@ -127,6 +127,10 @@ final class QuestionsViewController: UIViewController {
         perform(segue: StoryboardSegue.Questions.showResult)
     }
 }
+
+// -----------------------
+// - Bubble Transition
+// -----------------------
 
 extension QuestionsViewController: UIViewControllerTransitioningDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
