@@ -1,1 +1,2 @@
 github "ReactiveX/RxSwift" "4.4.1"
+github "andreamazz/BubbleTransition" "3.2.0"

@@ -10,30 +10,31 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import BubbleTransition
 
-class QuestionsViewController: UIViewController {
+final class QuestionsViewController: UIViewController {
 
     @IBOutlet weak private var economyGradeSegCon: UISegmentedControl!
     @IBOutlet weak private var effortGradeSegCon: UISegmentedControl!
     @IBOutlet weak private var schoolStageSegCon: UISegmentedControl!
-    @IBOutlet weak private var childrenSegCon: UISegmentedControl!
-    @IBOutlet weak private var totalBudgetSegCon: UISegmentedControl!
+    @IBOutlet weak fileprivate var calculateButton: UIButton!
+    @IBOutlet weak private var nameTextField: UITextField!
     
-    let economyRate = BehaviorRelay<Int>(value: 0)
-    let effortRate = BehaviorRelay<Int>(value: 0)
-    let schoolRate = BehaviorRelay<Int>(value: 0)
-    let childrenRate = BehaviorRelay<Int>(value: 0)
-    let totalBudgetRate = BehaviorRelay<Int>(value: 0)
+    let economyGrade = BehaviorRelay<EconomyGrade>(value: .good)
+    let effortGrade = BehaviorRelay<EffortGrade>(value: .fair)
+    let schoolStage = BehaviorRelay<SchoolStage>(value: .preschool)
+    let name = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
+    let transition = BubbleTransition()
+    let interactiveTransition = BubbleInteractiveTransition()
     
-    enum EconomyGrade {
+    enum EconomyGrade: CaseIterable {
         case good
         case fair
         case poor
         
         var rate: Double {
-            // FIXME: 計算ロジックを考える
             switch self {
             case .good: return 1.2
             case .fair: return 1
@@ -42,13 +43,12 @@ class QuestionsViewController: UIViewController {
         }
     }
     
-    enum EffortGrade {
+    enum EffortGrade: CaseIterable {
         case good
         case fair
         case poor
         
         var rate: Double {
-            // FIXME: 計算ロジックを考える
             switch self {
             case .good: return 1.2
             case .fair: return 1
@@ -57,7 +57,7 @@ class QuestionsViewController: UIViewController {
         }
     }
     
-    enum SchoolStage {
+    enum SchoolStage: CaseIterable {
         case preschool
         case elementarySchool
         case juniorHighSchool
@@ -65,7 +65,6 @@ class QuestionsViewController: UIViewController {
         case university
         
         var rate: Double {
-            // FIXME: 計算ロジックを考える
             switch self {
             case .preschool: return 500
             case .elementarySchool: return 2000
@@ -76,46 +75,6 @@ class QuestionsViewController: UIViewController {
         }
     }
     
-    enum Children {
-        case one
-        case two
-        case three
-        case four
-        case overFive
-        
-        var rate: Double {
-            // FIXME: 計算ロジックを考える
-            switch self {
-            case .one: return 500
-            case .two: return 2000
-            case .three: return 5000
-            case .four: return 7000
-            case .overFive: return 10000
-            }
-        }
-    }
-    
-    enum TotalBudget: Double {
-        case low     // 10000円
-        case middle  // 30000円
-        case high    // 50000円
-        case more    // それ以上
-        
-        var rate: Double {
-            // FIXME: 計算ロジックを考える
-            switch self {
-            case .low: return 500
-            case .middle: return 2000
-            case .high: return 5000
-            case .more: return 7000
-            }
-        }
-    }
-    
-    private var economyGrade: EconomyGrade = .good
-    private var effortGrade: EffortGrade = .good
-    private var schoolStage: SchoolStage = .preschool
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -124,33 +83,77 @@ class QuestionsViewController: UIViewController {
     
     func bind() {
         economyGradeSegCon.rx.selectedSegmentIndex
-            .subscribe(onNext: { [unowned self] index in
-                
-            })
+            .distinctUntilChanged()
+            .map { EconomyGrade.allCases[$0] }
+            .bind(to: economyGrade)
             .disposed(by: disposeBag)
         
         effortGradeSegCon.rx.selectedSegmentIndex
-            .subscribe(onNext: { [unowned self] index in
-                
-            })
+            .distinctUntilChanged()
+            .map { EffortGrade.allCases[$0] }
+            .bind(to: effortGrade)
             .disposed(by: disposeBag)
         
         schoolStageSegCon.rx.selectedSegmentIndex
-            .subscribe(onNext: { [unowned self] index in
-                
-            })
+            .distinctUntilChanged()
+            .map { SchoolStage.allCases[$0] }
+            .bind(to: schoolStage)
             .disposed(by: disposeBag)
         
-        childrenSegCon.rx.selectedSegmentIndex
-            .subscribe(onNext: { [unowned self] index in
-                
-            })
+        nameTextField.rx.text.orEmpty
+            .bind(to: name)
             .disposed(by: disposeBag)
         
-        totalBudgetSegCon.rx.selectedSegmentIndex
-            .subscribe(onNext: { [unowned self] index in
-                
+        calculateButton.rx.tap
+            .map { [unowned self] in
+                (
+                    economyRate: self.economyGrade.value.rate,
+                    effortRate: self.effortGrade.value.rate,
+                    schoolRate: self.schoolStage.value.rate
+                )
+            }
+            .subscribe(onNext: { [unowned self] arg in
+                self.calculate(
+                    economyRate: arg.economyRate,
+                    effortRate: arg.effortRate,
+                    schoolRate: arg.schoolRate
+                )
             })
             .disposed(by: disposeBag)
+    }
+    
+    func calculate(economyRate: Double, effortRate: Double, schoolRate: Double) {
+        // TODO: 計算処理
+        perform(segue: StoryboardSegue.Questions.showResult)
+    }
+}
+
+extension QuestionsViewController: UIViewControllerTransitioningDelegate {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == StoryboardSegue.Questions.showResult.rawValue {
+            let vc = segue.destination as! ResultViewController
+            vc.transitioningDelegate = self
+            vc.modalPresentationStyle = .custom
+            vc.interactiveTransition = interactiveTransition
+            interactiveTransition.attach(to: vc)
+        }
+    }
+    
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .present
+        transition.startingPoint = calculateButton.center
+        transition.bubbleColor = calculateButton.backgroundColor ?? Asset.systemBlue.color
+        return transition
+    }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .dismiss
+        transition.startingPoint = calculateButton.center
+        transition.bubbleColor = calculateButton.backgroundColor ?? Asset.systemBlue.color
+        return transition
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactiveTransition
     }
 }

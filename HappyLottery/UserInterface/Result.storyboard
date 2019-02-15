@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fyl-7l-dIH">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Result View Controller-->
+        <scene sceneID="LSW-cZ-pUG">
+            <objects>
+                <viewController id="fyl-7l-dIH" customClass="ResultViewController" customModule="HappyLottery" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9Md-xf-8e6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uS6-AV-jEk">
+                                <rect key="frame" x="163.5" y="323" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SeS-ed-M8I">
+                                <rect key="frame" x="152.5" y="557" width="70" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="VhD-gv-BUb"/>
+                                    <constraint firstAttribute="width" secondItem="SeS-ed-M8I" secondAttribute="height" multiplier="1:1" id="ykg-Jp-ssW"/>
+                                </constraints>
+                                <state key="normal" title="Back!">
+                                    <color key="titleColor" name="systemBlue"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="systemBlue"/>
+                        <constraints>
+                            <constraint firstItem="uS6-AV-jEk" firstAttribute="centerY" secondItem="9Md-xf-8e6" secondAttribute="centerY" id="Dxg-fg-dK2"/>
+                            <constraint firstItem="9wh-Y5-ZIs" firstAttribute="bottom" secondItem="SeS-ed-M8I" secondAttribute="bottom" constant="40" id="GX0-SP-4yk"/>
+                            <constraint firstItem="SeS-ed-M8I" firstAttribute="centerX" secondItem="9Md-xf-8e6" secondAttribute="centerX" id="OgC-17-rgj"/>
+                            <constraint firstItem="uS6-AV-jEk" firstAttribute="centerX" secondItem="9Md-xf-8e6" secondAttribute="centerX" id="c4B-DU-qB7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9wh-Y5-ZIs"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="SeS-ed-M8I" id="mXV-kK-vm2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R1V-CT-rsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="systemBlue">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
