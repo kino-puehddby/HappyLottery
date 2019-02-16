@@ -40,6 +40,17 @@ internal enum L10n {
       }
     }
   }
+
+  internal enum Result {
+    /// %@さんのお年玉は。。。
+    internal static func name(_ p1: String) -> String {
+      return L10n.tr("Localizable", "Result.Name", p1)
+    }
+    /// %d円
+    internal static func result(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "Result.Result", p1)
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

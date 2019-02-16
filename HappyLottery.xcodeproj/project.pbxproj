@@ -24,6 +24,7 @@
 		4E78E0A8221289AF0041EE18 /* StoryboardSegues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78E0A4221289AF0041EE18 /* StoryboardSegues.swift */; };
 		4E78E0A9221289AF0041EE18 /* StoryboardScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78E0A5221289AF0041EE18 /* StoryboardScenes.swift */; };
 		4E78E0AE2212B1240041EE18 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E78E0AD2212B1240041EE18 /* Localizable.strings */; };
+		A0353C4F2217429500695801 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0353C4E2217429500695801 /* Const.swift */; };
 		E2CA4DA17D6AC0C92F0DBD4D /* Pods_HappyLottery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A451DE576C62DBDD9FB9217B /* Pods_HappyLottery.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		4E78E0AD2212B1240041EE18 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		5E7922D2C70B4F4D8EEFD1CC /* Pods-HappyLottery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HappyLottery.debug.xcconfig"; path = "Target Support Files/Pods-HappyLottery/Pods-HappyLottery.debug.xcconfig"; sourceTree = "<group>"; };
 		6EDC0746CED60390B78D7CFE /* Pods-HappyLottery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HappyLottery.release.xcconfig"; path = "Target Support Files/Pods-HappyLottery/Pods-HappyLottery.release.xcconfig"; sourceTree = "<group>"; };
+		A0353C4E2217429500695801 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		A451DE576C62DBDD9FB9217B /* Pods_HappyLottery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HappyLottery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				4E78E06A22127A750041EE18 /* Generated */,
+				A0353C4E2217429500695801 /* Const.swift */,
 			);
 			name = Units;
 			path = Utils;
@@ -358,6 +361,7 @@
 				4E4D229322165D0F0013DD7D /* ResultViewController.swift in Sources */,
 				4E78E0A8221289AF0041EE18 /* StoryboardSegues.swift in Sources */,
 				4E78E0A7221289AF0041EE18 /* Assets.swift in Sources */,
+				A0353C4F2217429500695801 /* Const.swift in Sources */,
 				4E78E055221273830041EE18 /* AppDelegate.swift in Sources */,
 				4E78E0A9221289AF0041EE18 /* StoryboardScenes.swift in Sources */,
 			);

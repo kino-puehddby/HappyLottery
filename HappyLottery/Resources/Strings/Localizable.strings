@@ -1,5 +1,6 @@
 // Localizable.string
-
+"Result.Name"="%@さんのお年玉は。。。";
+"Result.Result"="%d円";
 
 // Sample
 "Common.Ok"="OK";
