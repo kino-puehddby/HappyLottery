@@ -75,17 +75,17 @@ final class QuestionsViewController: UIViewController {
             case .elementarySchool: return 500
             case .juniorHighSchool: return 1000
             case .highSchool: return 2000
-            case .university: return 5000
+            case .university: return 3000
             }
         }
         
         var max: Double {
             switch self {
             case .preschool: return 500
-            case .elementarySchool: return 1500
+            case .elementarySchool: return 2000
             case .juniorHighSchool: return 3000
             case .highSchool: return 8000
-            case .university: return 15000
+            case .university: return 17000
             }
         }
     }
@@ -100,6 +100,8 @@ final class QuestionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        calculateButton.backgroundColor = .lightGray
         
         bind()
     }
@@ -171,10 +173,10 @@ final class QuestionsViewController: UIViewController {
         let result: Double = {
             let random = Double.random(in: 1...100)
             // effortを確立に反映させる
-            let great: Double = 5 * effortRate
-            let good: Double = 20 * effortRate
-            let bad: Double = 20 * (1 / effortRate)
-            let shit: Double = 5 * (1 / effortRate)
+            let great: Double = Question.StandardProbability.great * effortRate
+            let good: Double = Question.StandardProbability.good * effortRate
+            let bad: Double = Question.StandardProbability.bad * (1 / effortRate)
+            let shit: Double = Question.StandardProbability.shit * (1 / effortRate)
             let usually: Double = 100 - (great + good + bad + shit)
             let list = [great, good, usually, bad, shit]
             
@@ -220,6 +222,7 @@ extension QuestionsViewController: UIViewControllerTransitioningDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == StoryboardSegue.Questions.showResult.rawValue {
             let vc = segue.destination as! ResultViewController
+            vc.name = name.value
             vc.result = calculated.value
             vc.transitioningDelegate = self
             vc.modalPresentationStyle = .custom

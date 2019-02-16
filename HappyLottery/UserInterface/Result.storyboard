@@ -41,18 +41,27 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="〇〇さんのお年玉は。。。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bq-em-n5c">
+                                <rect key="frame" x="97.5" y="259.5" width="180" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="systemBlue"/>
                         <constraints>
                             <constraint firstItem="uS6-AV-jEk" firstAttribute="centerY" secondItem="9Md-xf-8e6" secondAttribute="centerY" id="Dxg-fg-dK2"/>
                             <constraint firstItem="9wh-Y5-ZIs" firstAttribute="bottom" secondItem="SeS-ed-M8I" secondAttribute="bottom" constant="40" id="GX0-SP-4yk"/>
+                            <constraint firstItem="0Bq-em-n5c" firstAttribute="centerX" secondItem="9Md-xf-8e6" secondAttribute="centerX" id="HHw-wx-5Jl"/>
                             <constraint firstItem="SeS-ed-M8I" firstAttribute="centerX" secondItem="9Md-xf-8e6" secondAttribute="centerX" id="OgC-17-rgj"/>
                             <constraint firstItem="uS6-AV-jEk" firstAttribute="centerX" secondItem="9Md-xf-8e6" secondAttribute="centerX" id="c4B-DU-qB7"/>
+                            <constraint firstItem="uS6-AV-jEk" firstAttribute="top" secondItem="0Bq-em-n5c" secondAttribute="bottom" constant="25" id="geE-Um-6TL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9wh-Y5-ZIs"/>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="SeS-ed-M8I" id="mXV-kK-vm2"/>
+                        <outlet property="nameLabel" destination="0Bq-em-n5c" id="dMX-3h-ydb"/>
                         <outlet property="resultLabel" destination="uS6-AV-jEk" id="kZu-hV-N5z"/>
                     </connections>
                 </viewController>

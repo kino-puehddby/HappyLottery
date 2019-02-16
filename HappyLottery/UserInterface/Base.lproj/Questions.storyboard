@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="FXp-AG-mcF">
-                                <rect key="frame" x="45.5" y="104" width="284" height="332"/>
+                                <rect key="frame" x="30" y="104" width="315" height="332"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wuf-rO-Wrz">
-                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="62"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="315" height="62"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NAr-b0-6ml">
                                                 <rect key="frame" x="0.0" y="0.0" width="172.5" height="17"/>
@@ -45,56 +45,67 @@
                                                 </constraints>
                                             </stackView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rcc-ea-FUJ">
-                                                <rect key="frame" x="0.0" y="32" width="120" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="120" id="Hok-rJ-fiw"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="32" width="315" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="rcc-ea-FUJ" secondAttribute="trailing" id="Rfo-tb-hyw"/>
+                                            <constraint firstItem="rcc-ea-FUJ" firstAttribute="leading" secondItem="wuf-rO-Wrz" secondAttribute="leading" id="fVz-me-MHZ"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Gn8-fa-xro">
-                                        <rect key="frame" x="0.0" y="92" width="206" height="60"/>
+                                        <rect key="frame" x="0.0" y="92" width="315" height="60"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今年の景気" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdZ-Y4-L0m">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨年の景気" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdZ-Y4-L0m">
                                                 <rect key="frame" x="0.0" y="0.0" width="71.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="auk-ou-iDf">
-                                                <rect key="frame" x="0.0" y="32" width="206" height="29"/>
+                                                <rect key="frame" x="0.0" y="32" width="315" height="29"/>
                                                 <segments>
                                                     <segment title="良かった"/>
                                                     <segment title="普通"/>
                                                     <segment title="悪かった"/>
                                                 </segments>
+                                                <color key="tintColor" name="systemBlue"/>
                                             </segmentedControl>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="auk-ou-iDf" secondAttribute="trailing" id="Map-FH-2rz"/>
+                                            <constraint firstItem="auk-ou-iDf" firstAttribute="leading" secondItem="Gn8-fa-xro" secondAttribute="leading" id="hIT-MI-DNt"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="cU1-44-hhN">
-                                        <rect key="frame" x="0.0" y="182" width="284" height="60"/>
+                                        <rect key="frame" x="0.0" y="182" width="315" height="60"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="子供の頑張り" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drv-l7-fEY">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨年の頑張り" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drv-l7-fEY">
                                                 <rect key="frame" x="0.0" y="0.0" width="86" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NUn-by-yvV">
-                                                <rect key="frame" x="0.0" y="32" width="284" height="29"/>
+                                                <rect key="frame" x="0.0" y="32" width="315" height="29"/>
                                                 <segments>
                                                     <segment title="よく頑張った"/>
                                                     <segment title="普通"/>
                                                     <segment title="足りない"/>
                                                 </segments>
+                                                <color key="tintColor" name="systemBlue"/>
                                             </segmentedControl>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="NUn-by-yvV" secondAttribute="trailing" id="Ts2-j3-Gic"/>
+                                            <constraint firstItem="NUn-by-yvV" firstAttribute="leading" secondItem="cU1-44-hhN" secondAttribute="leading" id="eBz-ZM-p3v"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZGy-DU-8NT">
-                                        <rect key="frame" x="0.0" y="272" width="274" height="60"/>
+                                        <rect key="frame" x="0.0" y="272" width="315" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学校段階" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lma-02-qNo">
                                                 <rect key="frame" x="0.0" y="0.0" width="57.5" height="17"/>
@@ -103,7 +114,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Gcv-cw-JSM">
-                                                <rect key="frame" x="0.0" y="32" width="274" height="29"/>
+                                                <rect key="frame" x="0.0" y="32" width="315" height="29"/>
                                                 <segments>
                                                     <segment title="未就学"/>
                                                     <segment title="小学校"/>
@@ -111,14 +122,29 @@
                                                     <segment title="高校"/>
                                                     <segment title="大学"/>
                                                 </segments>
+                                                <color key="tintColor" name="systemBlue"/>
                                             </segmentedControl>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Gcv-cw-JSM" firstAttribute="leading" secondItem="ZGy-DU-8NT" secondAttribute="leading" id="GOY-6D-5YK"/>
+                                            <constraint firstAttribute="trailing" secondItem="Gcv-cw-JSM" secondAttribute="trailing" id="bdN-0b-28i"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ZGy-DU-8NT" secondAttribute="trailing" id="4hi-EG-u3y"/>
+                                    <constraint firstItem="cU1-44-hhN" firstAttribute="leading" secondItem="FXp-AG-mcF" secondAttribute="leading" id="8Jx-mA-bPZ"/>
+                                    <constraint firstItem="ZGy-DU-8NT" firstAttribute="leading" secondItem="FXp-AG-mcF" secondAttribute="leading" id="MZA-gy-ww1"/>
+                                    <constraint firstItem="Gn8-fa-xro" firstAttribute="leading" secondItem="FXp-AG-mcF" secondAttribute="leading" id="WLt-cB-foi"/>
+                                    <constraint firstAttribute="trailing" secondItem="cU1-44-hhN" secondAttribute="trailing" id="Y6M-pB-xwd"/>
+                                    <constraint firstAttribute="trailing" secondItem="wuf-rO-Wrz" secondAttribute="trailing" id="frG-T0-AEe"/>
+                                    <constraint firstItem="wuf-rO-Wrz" firstAttribute="leading" secondItem="FXp-AG-mcF" secondAttribute="leading" id="k0a-Ve-z0I"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gn8-fa-xro" secondAttribute="trailing" id="qhw-9N-ccx"/>
+                                </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIj-je-CNX">
                                 <rect key="frame" x="152.5" y="557" width="70" height="70"/>
-                                <color key="backgroundColor" name="systemBlue"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="NNz-al-PWw"/>
                                     <constraint firstAttribute="width" secondItem="SIj-je-CNX" secondAttribute="height" multiplier="1:1" id="gMt-lK-80d"/>
@@ -139,8 +165,10 @@
                         <constraints>
                             <constraint firstItem="FXp-AG-mcF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="AZg-6c-a1J"/>
                             <constraint firstItem="SIj-je-CNX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Aik-A1-WFu"/>
+                            <constraint firstItem="FXp-AG-mcF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Iap-ek-EW8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SIj-je-CNX" secondAttribute="bottom" constant="40" id="R9o-Lq-3p2"/>
                             <constraint firstItem="FXp-AG-mcF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tlB-lV-lNs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FXp-AG-mcF" secondAttribute="trailing" constant="30" id="zvj-IG-wrN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
